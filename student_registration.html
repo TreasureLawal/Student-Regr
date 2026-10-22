@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 24px; }
+  .card { max-width: 640px; margin: auto; background: #fff; padding: 28px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+  h1 { margin-top: 0; font-size: 24px; text-align: center; }
+  label { display: block; font-weight: 600; margin: 14px 0 6px; }
+  input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+  .error { color: #b91c1c; font-size: 13px; margin-top: 4px; display: none; }
+  button { width: 100%; margin-top: 20px; background: #2563eb; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+  button:hover { background: #1e40af; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Student Registration</h1>
+  <form id="registrationForm" novalidate>
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" required>
+    <div class="error">Please enter your name.</div>
+
+    <label for="matricNumber">Matric Number *</label>
+    <input type="text" id="matricNumber" name="matricNumber" required>
+    <div class="error">Please enter your matric number.</div>
+
+    <label for="department">Department *</label>
+    <input type="text" id="department" name="department" required>
+    <div class="error">Please enter your department.</div>
+
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required>
+    <div class="error">Please enter a valid email address.</div>
+
+    <label for="phone">Phone Number *</label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9+\-\s]{7,20}" required>
+    <div class="error">Please enter a valid phone number.</div>
+
+    <label for="gender">Gender *</label>
+    <select id="gender" name="gender" required>
+      <option value="">Select gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+      <option value="Prefer not to say">Prefer not to say</option>
+    </select>
+    <div class="error">Please select your gender.</div>
+
+    <label for="programme">Programme *</label>
+    <input type="text" id="programme" name="programme" required>
+    <div class="error">Please enter your programme.</div>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  let isValid = true;
+  this.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+
+  this.querySelectorAll('[required]').forEach(field => {
+    const error = field.parentElement.querySelector('.error');
+    const fieldIsValid = field.checkValidity() && field.value.trim() !== '';
+
+    if (!fieldIsValid) {
+      isValid = false;
+      if (error) error.style.display = 'block';
+    }
+  });
+
+  if (isValid) {
+    const formData = Object.fromEntries(new FormData(this).entries());
+    console.log('Student registration data:', formData);
+    alert('Registration submitted successfully!');
+    this.reset();
+  }
+});
+</script>
+</body>
+</html>
