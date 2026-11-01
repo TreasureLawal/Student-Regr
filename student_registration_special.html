@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration Portal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d9d9d9;
+    padding: 40px 16px;
+  }
+
+  .registration-card {
+    width: 100%;
+    max-width: 760px;
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    background: #ffffff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.22);
+  }
+
+  .side-panel {
+    background: #111827;
+    color: #ffffff;
+    padding: 40px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .side-panel::after {
+    content: "";
+    position: absolute;
+    right: -55px;
+    bottom: -55px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.25);
+  }
+
+  .badge {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin-bottom: 22px;
+  }
+
+  .side-panel h2 {
+    font-size: 27px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .side-panel p {
+    color: #cbd5e1;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  .side-note {
+    font-size: 12.5px;
+    color: #94a3b8;
+    border-top: 1px solid #334155;
+    padding-top: 16px;
+  }
+
+  .form-area {
+    padding: 38px 34px;
+  }
+
+  .form-area h1 {
+    color: #111827;
+    font-size: 25px;
+    margin-bottom: 6px;
+  }
+
+  .form-area > p {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .input-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 7px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: #111827;
+    background: #f3f4f6;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+
+  input::placeholder {
+    color: #9ca3af;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+  }
+
+  .error-message {
+    display: none;
+    color: #dc2626;
+    font-size: 12.5px;
+    margin-top: 5px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 22px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #111827;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .submit-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.28);
+  }
+
+  .success-message {
+    display: none;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .registration-card { grid-template-columns: 1fr; }
+    .side-panel { padding: 30px 25px; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <main class="registration-card">
+    <aside class="side-panel">
+      <div>
+        <div class="badge">🎓</div>
+        <h2>Join the<br>Student Portal</h2>
+        <p>Complete your registration to access departmental updates, course materials, and student services.</p>
+      </div>
+      <div class="side-note">All fields marked with * are required.</div>
+    </aside>
+
+    <section class="form-area">
+      <h1>Student Registration</h1>
+      <p>Provide your correct academic and contact details below.</p>
+
+      <form id="studentForm" novalidate>
+        <div class="form-grid">
+          <div class="input-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Adamu Ibrahim Musa" required>
+            <div class="error-message">Please enter your full name.</div>
+          </div>
+
+          <div class="input-group">
+            <label for="matric">Matric Number *</label>
+            <input type="text" id="matric" name="matricNumber" placeholder="e.g. CSC/2024/0123" required>
+            <div class="error-message">Please enter your matric number.</div>
+          </div>
+
+          <div class="input-group">
+            <label for="department">Department *</label>
+            <input type="text" id="department" name="department" placeholder="e.g. Computer Science" required>
+            <div class="error-message">Please enter your department.</div>
+          </div>
+
+          <div class="input-group">
+            <label for="programme">Programme *</label>
+            <input type="text" id="programme" name="programme" placeholder="e.g. B.Sc. Computer Science" required>
+            <div class="error-message">Please enter your programme.</div>
+          </div>
+
+          <div class="input-group full-width">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="e.g. adamu.ibrahim@student.edu" required>
+            <div class="error-message">Please enter a valid email address.</div>
+          </div>
+
+          <div class="input-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 0801 234 5678" pattern="[0-9+\-\s]{7,20}" required>
+            <div class="error-message">Please enter a valid phone number.</div>
+          </div>
+
+          <div class="input-group">
+            <label for="gender">Gender *</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select your gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+            <div class="error-message">Please select your gender.</div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Registration</button>
+        <div class="success-message" id="successMessage">Your registration was submitted successfully.</div>
+      </form>
+    </section>
+  </main>
+
+<script>
+const form = document.getElementById('studentForm');
+const successMessage = document.getElementById('successMessage');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  let isValid = true;
+
+  form.querySelectorAll('.error-message').forEach(message => message.style.display = 'none');
+
+  form.querySelectorAll('[required]').forEach(field => {
+    const error = field.parentElement.querySelector('.error-message');
+    const valid = field.checkValidity() && field.value.trim() !== '';
+
+    if (!valid) {
+      isValid = false;
+      if (error) error.style.display = 'block';
+    }
+  });
+
+  if (isValid) {
+    const studentData = Object.fromEntries(new FormData(form).entries());
+    console.log('Submitted student details:', studentData);
+    successMessage.style.display = 'block';
+    form.reset();
+    setTimeout(() => successMessage.style.display = 'none', 5000);
+  }
+});
+</script>
+</body>
+</html>
